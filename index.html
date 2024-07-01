@@ -28,26 +28,41 @@
         object-fit: contain; /* Ensures the image is scaled to maintain its aspect ratio while fitting within the element's box */
     }
 /* Style for the button container */
-    .button-container {
-        position: fixed; /* Fixed position to keep it at the bottom */
-        width: 50%; /* Full width to center the button */
-        bottom: 0; /* At the bottom of the page */
-        text-align: center; /* Center the content */
-        background: #007229; /* Green background */
-        padding: 10px 0; /* Padding above and below the button */
-    }
+/* Style for the button container */
+.button-container {
+    position: fixed; /* Fixed position to keep it at the bottom */
+    left: 0; /* Align the container to the left edge */
+    right: 0; /* Align the container to the right edge */
+    bottom: 0; /* At the bottom of the page */
+    text-align: center; /* Center the content */
+    background: #007229; /* Green background */
+    padding: 10px 0; /* Padding above and below the button */
+}
 
-    /* Style for the button */
-    button {
-        background-color: #007229; /* Green background to match the container */
-        color: white; /* White text */
-        padding: 15px 32px; /* Padding */
-        border: none; /* No border */
-        text-align: center; /* Center text */
-        text-decoration: none; /* No underline */
-        font-size: 16px; /* Font size */
-        cursor: pointer; /* Pointer cursor on hover */
-        border-radius: 8px; /* Rounded corners */
+/* Style for the button */
+button {
+    background-color: #007229; /* Green background */
+    color: white; /* White text */
+    padding: 15px 32px; /* Padding */
+    font-size: 16px; /* Font size */
+    border: 2px solid #00591E; /* Darker green border for contrast */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+    outline: none; /* Remove outline */
+    transition: transform 0.2s, box-shadow 0.2s; /* Smooth transform */
+}
+
+/* Hover and active effects for the button */
+button:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
+    transform: translateY(-2px); /* Slightly raise the button */
+}
+
+button:active {
+    transform: translateY(1px); /* Slightly press down the button */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Less shadow when pressed */
+}
     }</style>
 </head>
 <body>
