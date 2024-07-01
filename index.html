@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Site Example</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: url('background.jpeg') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    h2 {
+        font-size: small;
+    }
+    .responsive-png {
+        position: absolute;
+        max-width: 60%; /* Maximum width of 60% of the viewport width */
+        max-height: 60%; /* Maximum height of 60% of the viewport height */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: auto; /* Scale width automatically to maintain aspect ratio */
+        height: auto; /* Scale height automatically to maintain aspect ratio */
+        object-fit: contain; /* Ensures the image is scaled to maintain its aspect ratio while fitting within the element's box */
+    }
+/* Style for the button container */
+    .button-container {
+        position: fixed; /* Fixed position to keep it at the bottom */
+        width: 100%; /* Full width to center the button */
+        bottom: 0; /* At the bottom of the page */
+        text-align: center; /* Center the content */
+        background: #007229; /* Green background */
+        padding: 10px 0; /* Padding above and below the button */
+    }
+
+    /* Style for the button */
+    button {
+        background-color: #007229; /* Green background to match the container */
+        color: white; /* White text */
+        padding: 15px 32px; /* Padding */
+        border: none; /* No border */
+        text-align: center; /* Center text */
+        text-decoration: none; /* No underline */
+        font-size: 16px; /* Font size */
+        cursor: pointer; /* Pointer cursor on hover */
+        border-radius: 8px; /* Rounded corners */
+    }</style>
+</head>
+<body>
+    <img src="std.png" class="responsive-png" alt="Responsive PNG">
+    <div class="button-container">   
+        <a href="https://forms.gle/M7zq7d2qjZi9FQrf8" target="_blank">
+            <button>Beroštan - Keep me informed</button>
+        </a>
+    </div>
+    
+</body>
+</html>
