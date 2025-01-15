@@ -1,2 +1,2 @@
 # github.io
-Dieđavahkku - Sámi Science Week
+DutkanSápmi - Dieđavahkku 2025
