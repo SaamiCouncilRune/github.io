@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="sme">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DutkanSápmi - Dieđavahkku 2025</title>
+    <style>
+      /* Reset og grunnleggende styling */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      /* Header med tre flex-elementer: logo, meny og språkvalg */
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        z-index: 1000;
+        flex-wrap: nowrap; /* Forhindrer at elementene brytes til flere rader */
+      }
+      /* Logo – får aldri krympe */
+      header .logo {
+        flex-shrink: 0;
+      }
+      header .logo img {
+        max-height: 100px;
+        width: auto;
+      }
+      /* Navigasjonsmeny – tar opp gjenværende plass og gir horisontal scrolling om nødvendig */
+      header nav {
+        flex: 1;
+        overflow-x: auto;
+        margin: 0 1rem;
+      }
+      header nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: nowrap;
+      }
+      header nav li {
+        margin-left: 1.5rem;
+      }
+      header nav a {
+        color: #fff;
+        font-size: 1rem;
+        white-space: nowrap; /* Hindrer tekstbrudd på enkelte elementer */
+      }
+      /* Språkvalg – får aldri krympe */
+      .language-toggle {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+      }
+      .lang-button {
+        background: transparent;
+        border: 1px solid #fff;
+        color: #fff;
+        padding: 0.3rem 0.8rem;
+        margin-left: 0.5rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+      /* Hero-seksjonen – fullskjerm med bakgrunnsbilde og gradient-overlay */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+          url('https://diedavahkku.net/background.jpeg');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        padding: 0 1rem;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+      /* Fluid logo i hero-seksjonen */
+      .hero h1 img {
+        max-height: 150px; /* Juster denne verdien etter ønsket størrelse */
+        width: auto;
+      }
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+      .hero .register-btn {
+        background-color: #004225;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      /* Seksjoner for Om, Program og Registrering */
+      section {
+        padding: 4rem 2rem;
+      }
+      section h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+      section p {
+        max-width: 800px;
+        margin: 0 auto 1rem auto;
+        font-size: 1.1rem;
+      }
+      section ul {
+        max-width: 800px;
+        margin: 1rem auto;
+        list-style-type: none;
+      }
+      section li {
+        margin-bottom: 0.5rem;
+      }
+      /* Justering av hero-tekst for små skjermer */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+      }
+      /* Språkvisning – vis kun element med klassen .lang-active */
+      .lang-en,
+      .lang-sme {
+        display: none;
+      }
+      .lang-active {
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header med logo (som hjem-lenke), navigasjon og språkvalg -->
+    <header>
+      <div class="logo">
+        <a href="#home">
+          <img
+            src="https://diedavahkku.net/logowhiteonblank.png"
+            alt="DutkanSápmi Logo"
+          />
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="#home">
+              <span class="lang-en">Home</span>
+              <span class="lang-sme lang-active">Almmuheapmi</span>
+            </a>
+          </li>
+          <li>
+            <a href="#about">
+              <span class="lang-en">About</span>
+              <span class="lang-sme lang-active">Ovdal</span>
+            </a>
+          </li>
+          <li>
+            <a href="#program">
+              <span class="lang-en">Program</span>
+              <span class="lang-sme lang-active">Dárkilmmis</span>
+            </a>
+          </li>
+          <li>
+            <a href="#registration">
+              <span class="lang-en">Registration</span>
+              <span class="lang-sme lang-active">Registrering</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="language-toggle">
+        <button class="lang-button" onclick="setLanguage('en')">English</button>
+        <button class="lang-button" onclick="setLanguage('sme')">Nordsamisk</button>
+      </div>
+    </header>
+
+    <!-- Hero-seksjon (splash) -->
+    <div class="hero" id="home">
+      <h1>
+        <span class="lang-en">
+          <img
+            src="https://diedavahkku.net/logowhiteonblank.png"
+            alt="DutkanSápmi Logo"
+          />
+        </span>
+        <span class="lang-sme lang-active">
+          <img
+            src="https://diedavahkku.net/logowhiteonblank.png"
+            alt="DutkanSápmi Logo"
+          />
+        </span>
+      </h1>
+      <p>
+        <span class="lang-en">Save the dates 11.-13.06.2025 | Guovdageaidnu</span>
+        <span class="lang-sme lang-active">Várre beivviid 11.-13.06.2025 | Guovdageaidnu</span>
+      </p>
+      <a href="#registration">
+        <button class="register-btn">
+          <span class="lang-en">Register Now</span>
+          <span class="lang-sme lang-active">Registrer Nu</span>
+        </button>
+      </a>
+    </div>
+
+    <!-- Om-seksjonen -->
+    <section id="about">
+      <h2>
+        <span class="lang-en">About the Event</span>
+        <span class="lang-sme lang-active">Ovdal ov eventa</span>
+      </h2>
+      <p>
+        <span class="lang-en">
+          DutkanSápmi - Dieđavahkku 2025 is a unique gathering celebrating culture, innovation, and community. Join us for a memorable experience!
+        </span>
+        <span class="lang-sme lang-active">
+          DutkanSápmi - Dieđavahkku 2025 lea unni beaivvi mii fas kultur, ođđaidgaskuvla ja olbmuid. Geavaheapmi du nu mátkái!
+        </span>
+      </p>
+    </section>
+
+    <!-- Program-seksjonen -->
+    <section id="program">
+      <h2>
+        <span class="lang-en">Program (June 11 - June 13, 2025)</span>
+        <span class="lang-sme lang-active">Dárkilmmis (2025, 11. – 13. guovllus)</span>
+      </h2>
+      <ul>
+        <li>
+          <span class="lang-en"><strong>June 11:</strong> Opening Ceremony and Keynote Speeches</span>
+          <span class="lang-sme lang-active"><strong>11. guovllus:</strong> Algguheapmi ja johtaválddi čuovggaid</span>
+        </li>
+        <li>
+          <span class="lang-en"><strong>June 12:</strong> Workshops, Cultural Exhibits, and Panel Discussions</span>
+          <span class="lang-sme lang-active"><strong>12. guovllus:</strong> Čuovggaid, kultuvra ealáhusat ja dieđutvuođaid</span>
+        </li>
+        <li>
+          <span class="lang-en"><strong>June 13:</strong> Networking, Performances, and Closing Ceremony</span>
+          <span class="lang-sme lang-active"><strong>13. guovllus:</strong> Ovddasvuohta, dáhpáhusat ja jávgahit algguheapmi</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Registrering-seksjonen -->
+    <section id="registration">
+      <h2>
+        <span class="lang-en">Registration</span>
+        <span class="lang-sme lang-active">Registrering</span>
+      </h2>
+      <p>
+        <span class="lang-en">
+          Secure your spot for DutkanSápmi - Dieđavahkku 2025. Please register using the link below.
+        </span>
+        <span class="lang-sme lang-active">
+          Válljet du oktavuohta DutkanSápmi - Dieđavahkku 2025. Riegádus du registrerimislinka maŋŋel.
+        </span>
+      </p>
+      <p style="text-align: center;">
+        <a href="https://diedavahkku.net/registration" class="register-btn">
+          <span class="lang-en">Register Now</span>
+          <span class="lang-sme lang-active">Registrer Nu</span>
+        </a>
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #f4f4f4; text-align: center; padding: 1rem;">
+      <p>
+        <span class="lang-en">&copy; 2025 DutkanSápmi - Dieđavahkku. All rights reserved.</span>
+        <span class="lang-sme lang-active">&copy; 2025 DutkanSápmi - Dieđavahkku. Buorre ovddasvuohta.</span>
+      </p>
+    </footer>
+
+    <!-- JavaScript for språkbytte -->
+    <script>
+      function setLanguage(lang) {
+        if (lang === "en") {
+          document.querySelectorAll(".lang-en").forEach(function (el) {
+            el.classList.add("lang-active");
+          });
+          document.querySelectorAll(".lang-sme").forEach(function (el) {
+            el.classList.remove("lang-active");
+          });
+        } else if (lang === "sme") {
+          document.querySelectorAll(".lang-sme").forEach(function (el) {
+            el.classList.add("lang-active");
+          });
+          document.querySelectorAll(".lang-en").forEach(function (el) {
+            el.classList.remove("lang-active");
+          });
+        }
+      }
+      // Sett standardspråket til nordsamisk
+      setLanguage("sme");
+    </script>
+  </body>
+</html>
