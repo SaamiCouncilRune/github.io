@@ -19,7 +19,7 @@
         text-decoration: none;
         color: inherit;
       }
-      /* Header med tre flex-elementer: logo, meny og språkvalg */
+      /* Header med tre seksjoner: header-left, logo og header-right */
       header {
         position: fixed;
         top: 0;
@@ -28,56 +28,90 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 1rem;
+        padding: 1rem;
         z-index: 1000;
-        flex-wrap: nowrap; /* Forhindrer at elementene brytes til flere rader */
       }
-      /* Logo – får aldri krympe */
-      header .logo {
+      .header-left,
+      .header-right {
         flex-shrink: 0;
+        position: relative;
       }
-      header .logo img {
+      .logo {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+      }
+      .logo img {
         max-height: 100px;
         width: auto;
       }
-      /* Navigasjonsmeny – tar opp gjenværende plass og gir horisontal scrolling om nødvendig */
-      header nav {
-        flex: 1;
-        overflow-x: auto;
-        margin: 0 1rem;
-      }
-      header nav ul {
-        list-style: none;
-        display: flex;
-        flex-wrap: nowrap;
-      }
-      header nav li {
-        margin-left: 1.5rem;
-      }
-      header nav a {
-        color: #fff;
-        font-size: 1rem;
-        white-space: nowrap; /* Hindrer tekstbrudd på enkelte elementer */
-      }
-      /* Språkvalg – får aldri krympe */
-      .language-toggle {
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-      }
-      .lang-button {
+      /* Hamburger-ikon i header-left */
+      .menu-toggle {
         background: transparent;
-        border: 1px solid #fff;
+        border: none;
         color: #fff;
-        padding: 0.3rem 0.8rem;
-        margin-left: 0.5rem;
+        font-size: 1.5rem;
         cursor: pointer;
-        font-size: 0.9rem;
       }
-      /* Hero-seksjonen – fullskjerm med bakgrunnsbilde og gradient-overlay */
+      .menu-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        padding: 0.5rem 0;
+        min-width: 150px;
+        z-index: 1001;
+      }
+      .menu-dropdown a {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: #333;
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+      .menu-dropdown a:hover {
+        background-color: #f0f0f0;
+      }
+      /* Språk-dropdown i header-right */
+      .language-toggle-button {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      .language-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        padding: 0.5rem 0;
+        min-width: 150px;
+        z-index: 1001;
+      }
+      .language-dropdown a {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: #333;
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+      .language-dropdown a:hover {
+        background-color: #f0f0f0;
+      }
+      /* Hero-seksjonen */
       .hero {
         height: 100vh;
-        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        background: linear-gradient(
+            rgba(0, 0, 0, 0.3),
+            rgba(0, 0, 0, 0.3)
+          ),
           url('https://diedavahkku.net/background.jpeg');
         background-size: cover;
         background-position: center;
@@ -95,7 +129,7 @@
       }
       /* Fluid logo i hero-seksjonen */
       .hero h1 img {
-        max-height: 150px; /* Juster denne verdien etter ønsket størrelse */
+        max-height: 150px;
         width: auto;
       }
       .hero p {
@@ -133,7 +167,31 @@
       section li {
         margin-bottom: 0.5rem;
       }
-      /* Justering av hero-tekst for små skjermer */
+      /* Flytende pil nederst på skjermen med sirkelbakgrunn */
+      .scroll-down {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+        transition: opacity 0.3s;
+        opacity: 1;
+        z-index: 1000;
+        background-color: rgba(128, 128, 128, 0.5);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .scroll-down.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      /* Justering for små skjermer */
       @media (max-width: 768px) {
         .hero h1 {
           font-size: 2rem;
@@ -153,8 +211,29 @@
     </style>
   </head>
   <body>
-    <!-- Header med logo (som hjem-lenke), navigasjon og språkvalg -->
+    <!-- Header med hamburger-ikon (venstre), logo (midten) og språkvalg (høyre) -->
     <header>
+      <div class="header-left">
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+        <div id="menu-dropdown" class="menu-dropdown">
+          <a href="#home">
+            <span class="lang-en">Home</span>
+            <span class="lang-sme lang-active">Almmuheapmi</span>
+          </a>
+          <a href="#about">
+            <span class="lang-en">About</span>
+            <span class="lang-sme lang-active">Ovdal</span>
+          </a>
+          <a href="#program">
+            <span class="lang-en">Program</span>
+            <span class="lang-sme lang-active">Dárkilmmis</span>
+          </a>
+          <a href="#registration">
+            <span class="lang-en">Registration</span>
+            <span class="lang-sme lang-active">Registrering</span>
+          </a>
+        </div>
+      </div>
       <div class="logo">
         <a href="#home">
           <img
@@ -163,41 +242,18 @@
           />
         </a>
       </div>
-      <nav>
-        <ul>
-          <li>
-            <a href="#home">
-              <span class="lang-en">Home</span>
-              <span class="lang-sme lang-active">Almmuheapmi</span>
-            </a>
-          </li>
-          <li>
-            <a href="#about">
-              <span class="lang-en">About</span>
-              <span class="lang-sme lang-active">Ovdal</span>
-            </a>
-          </li>
-          <li>
-            <a href="#program">
-              <span class="lang-en">Program</span>
-              <span class="lang-sme lang-active">Dárkilmmis</span>
-            </a>
-          </li>
-          <li>
-            <a href="#registration">
-              <span class="lang-en">Registration</span>
-              <span class="lang-sme lang-active">Registrering</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <div class="language-toggle">
-        <button class="lang-button" onclick="setLanguage('en')">English</button>
-        <button class="lang-button" onclick="setLanguage('sme')">Nordsamisk</button>
+      <div class="header-right">
+        <div class="language-container">
+          <button id="language-toggle" class="language-toggle-button">🌐</button>
+          <div id="language-dropdown" class="language-dropdown">
+            <a href="#" onclick="setLanguage('sme'); return false;">Nordsamisk</a>
+            <a href="#" onclick="setLanguage('en'); return false;">English</a>
+          </div>
+        </div>
       </div>
     </header>
 
-    <!-- Hero-seksjon (splash) -->
+    <!-- Hero-seksjonen -->
     <div class="hero" id="home">
       <h1>
         <span class="lang-en">
@@ -224,6 +280,9 @@
         </button>
       </a>
     </div>
+
+    <!-- Flytende pil som peker nedover med sirkelbakgrunn -->
+    <div id="scroll-down" class="scroll-down">↓</div>
 
     <!-- Om-seksjonen -->
     <section id="about">
@@ -293,8 +352,19 @@
       </p>
     </footer>
 
-    <!-- JavaScript for språkbytte -->
+    <!-- JavaScript for toggling dropdowns, språkbytte og scroll-pil -->
     <script>
+      // Toggle meny-dropdown
+      document.getElementById("menu-toggle").addEventListener("click", function (e) {
+        var dropdown = document.getElementById("menu-dropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+      // Toggle språk-dropdown
+      document.getElementById("language-toggle").addEventListener("click", function (e) {
+        var dropdown = document.getElementById("language-dropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+      // Språkbyttefunksjon
       function setLanguage(lang) {
         if (lang === "en") {
           document.querySelectorAll(".lang-en").forEach(function (el) {
@@ -311,9 +381,22 @@
             el.classList.remove("lang-active");
           });
         }
+        // Lukk språk-dropdown etter valg
+        document.getElementById("language-dropdown").style.display = "none";
       }
       // Sett standardspråket til nordsamisk
       setLanguage("sme");
+      // Scroll-pil: Vis eller skjul basert på scroll-posisjon
+      window.addEventListener("scroll", function () {
+        var scrollDown = document.getElementById("scroll-down");
+        var scrollPosition = window.pageYOffset + window.innerHeight;
+        var documentHeight = document.documentElement.scrollHeight;
+        if (scrollPosition >= documentHeight - 10) {
+          scrollDown.classList.add("hidden");
+        } else {
+          scrollDown.classList.remove("hidden");
+        }
+      });
     </script>
   </body>
 </html>
