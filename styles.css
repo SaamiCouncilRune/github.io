@@ -331,6 +331,12 @@ footer {
     .separator {
         margin: 0 0.3rem;
     }
+    
+    body, html {
+        background-attachment: scroll;
+        min-height: 100vh;
+        height: auto;
+    }
 }
 
 /* Error Messages */
