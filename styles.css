@@ -17,8 +17,13 @@ body, html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
-    background: url('background.jpeg') no-repeat center center fixed;
+    background: url('background.jpeg') no-repeat center center;
     background-size: cover;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    position: relative;
 }
 
 /* Navigation */
